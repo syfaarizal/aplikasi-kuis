@@ -8,7 +8,7 @@ Seluruh kriteria yang diminta dalam instruksi challenge telah diimplementasikan:
 
 - Fitur Login Sederhana: Pengguna diharuskan memasukkan nama (username) sebelum dapat memulai kuis.
 - Integrasi OpenTDB API: Soal kuis di-fetch secara dinamis (real-time) dari REST API Open Trivia Database (OpenTDB).
-- Kustomisasi Soal: Menggunakan konfigurasi 10 soal, tipe Pilihan Ganda (Multiple Choice), dengan kategori Hewan (Animals).
+- Kustomisasi Soal: Menggunakan konfigurasi 10 soal, tipe Pilihan Ganda (Multiple Choice), dengan kategori Entertainment: Japanese Anime &amp; Manga.
 - Indikator Progres: Layar kuis menampilkan secara jelas informasi pengguna, progres saat ini (contoh: "Soal 3 dari 10"), dan total soal.
 - Timer / Waktu Pengerjaan: Terdapat fitur countdown timer dengan batas waktu 120 detik (2 menit).
 - Navigasi Satu Arah: UI diatur agar hanya menampilkan satu soal per halaman. Saat pengguna menekan pilihan jawaban, sistem akan merekam jawaban dan otomatis berpindah ke soal berikutnya.
