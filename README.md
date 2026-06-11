@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# Interactive Quiz App - Frontend React.js Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyek ini adalah Aplikasi Kuis Interaktif berbasis web yang dibangun menggunakan React.js dan TypeScript. Aplikasi ini dikembangkan secara khusus untuk memenuhi persyaratan Frontend React.js Challenge sebagai bagian dari proses seleksi program magang.
 
-Currently, two official plugins are available:
+## Fitur Utama (Berdasarkan Kriteria Challenge)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Seluruh kriteria yang diminta dalam instruksi challenge telah diimplementasikan:
 
-## React Compiler
+- Fitur Login Sederhana: Pengguna diharuskan memasukkan nama (username) sebelum dapat memulai kuis.
+- Integrasi OpenTDB API: Soal kuis di-fetch secara dinamis (real-time) dari REST API Open Trivia Database (OpenTDB).
+- Kustomisasi Soal: Menggunakan konfigurasi 10 soal, tipe Pilihan Ganda (Multiple Choice), dengan kategori Hewan (Animals).
+- Indikator Progres: Layar kuis menampilkan secara jelas informasi pengguna, progres saat ini (contoh: "Soal 3 dari 10"), dan total soal.
+- Timer / Waktu Pengerjaan: Terdapat fitur countdown timer dengan batas waktu 120 detik (2 menit).
+- Navigasi Satu Arah: UI diatur agar hanya menampilkan satu soal per halaman. Saat pengguna menekan pilihan jawaban, sistem akan merekam jawaban dan otomatis berpindah ke soal berikutnya.
+- Auto-Submit & Result Panel: Jika timer mencapai 00:00 atau seluruh soal telah dijawab, sistem akan langsung menutup soal dan menampilkan panel hasil (Result Page) yang berisi persentase akurasi, total soal terjawab, jumlah jawaban benar, dan jumlah jawaban salah.
+- Mekanisme Resume (State Persistence) : Menambahkan mekanisme auto-save menggunakan localStorage. Jika pengguna tidak sengaja menutup tab atau browser saat sedang mengerjakan, mereka dapat melanjutkan sesi kuis yang tersimpan beserta sisa waktunya.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Teknologi yang Digunakan
 
-## Expanding the ESLint configuration
+- Core: React.js (Hooks: useState, useEffect)
+- Language: TypeScript (untuk type-safety dan struktur data yang lebih baik)
+- Styling: Tailwind CSS (untuk desain UI yang responsif dan modern)
+- Icons: Lucide React
+- Build Tool: Vite / Create React App
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Struktur Direktori Proyek
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Proyek ini dipisahkan menjadi beberapa komponen agar codebase tetap bersih, terukur (scalable), dan mudah di-maintain layaknya standar industri:
+```
+src/
+ ├── types.ts          # Definisi TypeScript Interfaces (GameState, Question, Session, dll)
+ ├── App.tsx           # Entry point & State Management utama (Logika Timer & API)
+ └── components/
+      ├── Login.tsx    # Komponen halaman awal / Login
+      ├── Quiz.tsx     # Komponen render soal & interaksi kuis
+      └── Result.tsx   # Komponen kalkulasi skor & hasil akhir
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Cara Menjalankan Proyek Secara Lokal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Untuk menjalankan proyek ini di mesin lokal Anda, ikuti langkah-langkah berikut:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone repositori ini
 ```
+git clone https://github.com/syfaarizal/aplikasi-kuis
+cd kuis-aplikasi
+```
+
+2. Install dependensi
+Pastikan Anda sudah menginstal Node.js, lalu jalankan:
+```
+npm install
+```
+
+(Jika Anda menggunakan library ikon tertentu seperti Lucide, pastikan untuk menginstalnya: npm install lucide-react)
+
+3. Jalankan Development Server
+```
+npm run dev
+# atau npm start (jika menggunakan Create React App)
+```
+
+4. Buka di Browser
+Buka http://localhost:5173 (atau port yang tertera pada terminal Anda).
+
+## Catatan Tambahan
+
+Mekanisme resume memanfaatkan localStorage dengan key quiz_session_v2. Sistem secara otomatis menyimpan state setiap kali pengguna menjawab soal atau saat detik timer berkurang. Jika kuis selesai secara normal, cache sesi tersebut akan otomatis dibersihkan.
+
+_Dibuat dengan untuk Frontend React.js Challenge._
